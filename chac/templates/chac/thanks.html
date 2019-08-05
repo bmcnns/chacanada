@@ -1,0 +1,18 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'chac/styles.css' %}">
+
+{% include "chac/meta.html" %}
+
+<body class="bg-orange-200">
+	{% include "chac/navbar.html" %}
+
+    <div class="max-w-lg mx-auto my-10 rounded overflow-hidden shadow-lg">
+        <img class="w-full" src="{% static 'chac/image1.jpg' %}" alt="Sunset in the mountains">
+        <div class="px-6 py-4 bg-orange-100">
+            <div class="font-bold text-xl mb-2">Thank you!</div>
+            <p class="text-gray-700 text-base">
+                You have successfully registered.
+            </p>
+        </div>
+    </div>
+</body>

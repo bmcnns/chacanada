@@ -1,0 +1,47 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'chac/styles.css' %}">
+
+{% include "chac/meta.html" %}
+
+<body class="bg-orange-200">
+    {% include "chac/navbar.html" %}
+    <div class="flex flex-wrap overflow-hidden">
+        <div class="sm:w-full lg:w-1/2 overflow-hidden">
+            <div class="max-w-full m-4 rounded overflow-hidden shadow-lg bg-pink-200">
+                <img class="w-full" src="{% static 'chac/background.jpg' %}" alt="Main banner image">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-2xl mb-2 text-pink-700">Creole Heritage Association Canada</div>
+                    <p class="mb-4 text-grey-dark text-base text-pink-700">
+                        CHA Canada is a member-based cultural and historical organization. The purpose and mission of CHA Canada is to provide Creoles with a forum for collective cultural expression, a conduit for participation in the general affairs of Sierra Leoneans in the diaspora and in Sierra Leone and to raise funds to effect its goals and mission.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="sm:w-full lg:w-1/2 overflow-hidden">
+            {% for post in latest_posts %}
+            <!-- wrapper -->
+            <section class="font-sans leading-normal flex">
+                <!-- card container -->
+                <div class="max-w-full shadow-lg rounded overflow-hidden m-4 sm:flex">
+                    <div class="h-48 sm:h-auto sm:w-48 md:w-64 flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l text-center overflow-hidden" style="background-image: url({% static post.post_image_url %})">
+                    </div>
+                    <!-- card-content -->
+                    <div class="px-6 py-2 bg-orange-400">
+                        <h2 class="mb-2 font-black text-red-900">{{ post.post_title }}</h2>
+                        <p class="mb-4 text-red-800 text-sm">{{ post.post_short_text }}</p>
+                        <!-- button -->
+                        <p class="my-5">
+                            <a class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 text-xs border-b-4 border-orange-700 hover:border-orange-500 rounded" href="{% url 'detail' post.post_title %}">
+                                Read more
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% include "chac/footer.html" %}
+    
+</body>

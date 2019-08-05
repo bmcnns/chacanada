@@ -1,0 +1,50 @@
+{% load static %}
+
+{% include "chac/meta.html" %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'chac/styles.css' %}">
+
+<body class="bg-orange-200">
+
+    {% include "chac/navbar.html" %}
+    
+    {% for event in schedule %}
+        {% if forloop.counter0|divisibleby:"2" %}
+	    <div class="max-w-full w-full lg:max-w-full lg:flex px-10 py-2 mx-auto">
+	    	<div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url({% static event.image_url %})" title="Peggy's Cove N.S.">
+	        </div>
+	        <div class="w-full border-r border-b border-l border-yellow-200 lg:border-l-0 lg:border-t lg:border-yellow-200 bg-yellow-200 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+	            <div class="mb-10">
+	            	<h1 class="text-xl mb-2">
+	                <span class="text-yellow-900 font-bold mb-2">{{ event.day_of_the_week }}</span>
+					{{ event.assigned_date }}
+	            	</h1>
+	                <p class="text-yellow-900 text-base leading-relaxed">
+	                	{{ event.events|safe }}
+	                </p>
+	            </div>
+	        </div>
+	    </div>
+        {% else %}
+        <div class="max-w-full w-full lg:max-w-full lg:flex px-10 py-2 mx-auto">
+            <div class="w-full border-r border-b border-l border-pink-200 lg:border-l-0 lg:border-t lg:border-pink-200 bg-pink-200 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-loose">
+                <div class="mb-10">
+                    <h1 class="text-xl mb-2">
+                    <span class="text-pink-700 font-bold mb-2">{{ event.day_of_the_week }}</span>
+                    {{ event.assigned_date }}
+                    </h1>
+                    <p class="text-pink-700 text-base leading-relaxed">
+                        {{ event.events|safe }}
+                    </p>
+                </div>
+            </div>
+            <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url({% static event.image_url %})" title="Peggy's Cove N.S.">
+            </div>
+            
+        </div>
+        {% endif %}
+    {% endfor %}
+
+    {% include "chac/footer.html" %}
+
+</body>

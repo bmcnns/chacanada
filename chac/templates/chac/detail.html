@@ -1,0 +1,30 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'chac/styles.css' %}">
+
+{% include "chac/meta.html" %}
+
+<body class="bg-orange-200">
+
+    {% include "chac/navbar.html" %}
+
+    <section class="font-sans leading-normal flex">
+        <!-- card container -->
+        <div class="max-w-full shadow-lg rounded overflow-hidden m-4 sm:flex">
+            <div class="h-48 sm:h-auto sm:w-48 md:w-64 flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l text-center overflow-hidden" style="background-image: url({% static post.post_image_url %})">
+            </div>
+            <!-- card-content -->
+            <div class="px-6 py-2 bg-green-300">
+                <h2 class="mb-2 font-black text-green-900">{{ post.post_title }}</h2>
+                <p class="mb-4 text-green-900 text-m">{{ post.post_content|safe }}</p>
+                <!-- button -->
+                <p class="my-5">
+                    <a class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 text-xs border-b-4 border-green-700 hover:border-green-500 rounded" href="{% url 'index' %}">
+                        Go back
+                    </a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    {% include "chac/footer.html" %}
+</body>

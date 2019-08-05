@@ -1,0 +1,42 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'chac/styles.css' %}">
+
+{% include "chac/meta.html" %}
+
+<body class="bg-orange-200">
+
+    {% include "chac/navbar.html" %}
+
+    <div class="w-full max-w-full sm:w-full lg:max-w-full lg:flex p-10 py-10 pb-0">
+        <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url({% static 'chac/image3.jpg' %})" title="Peggy's Cove N.S.">
+        </div>
+        <div class="border-r border-b border-l border-orange-400 lg:border-l-0 lg:border-t lg:border-orange-400 bg-orange-400 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+            <div class="mb-8">
+                <div class="text-orange-900 font-bold text-xl mb-2">Travel Information</div>
+                
+                <p class="text-orange-900 text-base">The event is scheduled to take place at Dalhousie Hall, Dalhousie University and the one-day international conference is being planned to tie-in with Resolution 68/237 of the United Nations (UN) that officially declared the decade of 2015-2024 as the International Decade for Peoples of African Descent: Recognition, Justice and Development. Therefore, in acknowledging and highlighting this decade, Creole Heritage Association Canada (CHAC), and Creole Heritage Association International (CHAI), and its affiliated bodies are recognizing that people of African Descent represent a distinct group whose human rights must be promoted, protected and preserved.
+                </p>
+
+                <p class="text-orange-900 py-5"><span class="font-bold">Airport: </span><a class="text-orange-800 hover:text-orange-700" href="https://halifaxstanfield.ca">Halifax Stanfield International Airport</a></p>
+                <p class="text-orange-900"><span class="font-bold">Bus Reservation: </span><a class="text-orange-800 hover:text-orange-700" href="https://maritimebus.com">From Airport to Atlantica Halifax Hotel</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="w-full max-w-full sm: w-full lg:max-w-full lg:flex p-10 pt-5 lg:mx-auto">
+        
+        <div class="border-r border-b border-l border-yellow-200 lg:border-l-0 lg:border-t lg:border-yellow-200 bg-yellow-200 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+            <div class="mb-8">
+                <div class="text-yellow-900 font-bold text-xl mb-2">Accomodations</div>
+                
+                <p class="text-yellow-900 text-base">Our booking will only work for dates between August 29th and September 3rd, inclusively. If guests wish to book outside those dates, they can simply contact our reservations department and they will happily confirm rates and availability. Once again our in-house reservation team can be reached by phone <a class="text-teal-700 hover:text-teal-600" href="tel:+18888107288">1-888-810-7288</a> or email at <a class="text-teal-700 hover:text-teal-600" href="mailto:reservations@atlanticahalifax.com">reservations@atlanticahalifax.com</a>.
+                </p>
+                <p><a class="inline-block bg-orange-500 hover:bg-orange-400 text-white leading-none font-bold py-2 px-4 my-2 text-sm border-b-4 border-orange-700 hover:border-orange-500 rounded" href="https://bookings.ihotelier.com/bookings.jsp?groupID=396805&hotelID=72818">Book</a></p>
+            </div>
+        </div>
+        <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url({% static 'chac/image4.jpg' %})" title="Peggy's Cove N.S.">
+        </div>
+    </div>
+
+    {% include "chac/footer.html" %}
+    
+</body>
