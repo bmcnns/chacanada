@@ -41,7 +41,7 @@ def register(request):
 			
 			user = form.save()
 
-			stripe.api_key = 'sk_test_s3NFutzfI5QM7EOByZfIdvyU00UZntBA2p'
+			stripe.api_key = 'sk_live_HGEj3t14Bn0Ra7P2bMmd3xmd00Q1SYsiKV'
 
 			order_description = ""
 			total = 0
@@ -114,8 +114,7 @@ def contact(request):
 				form.cleaned_data['first_name'] + " " + form.cleaned_data['last_name'] + " sent you a message",
 				form.cleaned_data['message'] + "\n\nreply to: " + form.cleaned_data['email'],
 				form.cleaned_data['email'],
-				['macinnisbryce@gmail.com', form.cleaned_data['email']],
-				#'creoleheritageassociationca@gmail.com' ],
+				['macinnisbryce@gmail.com', form.cleaned_data['email'],'creoleheritageassociationca@gmail.com' ],
 				fail_silently=False,
 			)
 
