@@ -1,7 +1,5 @@
 {% load static %}
-
 {% include "chac/meta.html" %}
-
 <link rel="stylesheet" type="text/css" href="{% static 'chac/styles.css' %}">
 
 <body class="bg-orange-200">
@@ -57,7 +55,7 @@
                                     <p class="text-gray-700 text-base">{{ item.item_description|safe }}</p>
                                     {% if item.item_name == "Our T-Shirt" %}
                                     <p class="text-purple-700 py-2 text-md font-medium">Size: </p>
-                                    <select id="item-{{forloop.counter}}" class="block appearance-none w-full bg-white-200 border border-purple-200 text-purple-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="grid-shirt-size">
+                                    <select id="item-{{forloop.counter}}" class="block appearance-none w-full bg-white-200 border border-purple-200 text-purple-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
                                         <option>XS</option>
                                         <option>S</option>
                                         <option>M</option>
@@ -65,16 +63,17 @@
                                         <option>XL</option>
                                         <option>XXL</option>
                                     </select>
-                                    <button type="button" class="inline-block bg-purple-500 hover:bg-purple-400 text-white leading-none font-bold py-2 px-4 text-sm border-b-4 border-purple-700 hover:border-purple-500 align-center rounded my-2" onclick="addToCart('{{ item.item_name }}', document.getElementById('item-{{ forloop.counter }}').value, '{{ item.item_cost }}')">Add</button>
-                                    {% else %}
-                                    <button type="button" class="inline-block bg-purple-500 hover:bg-purple-400 text-white leading-none font-bold py-2 px-4 text-sm border-b-4 border-purple-700 hover:border-purple-500 align-center rounded my-2" onclick="addToCart('{{ item.item_name }}', '', '{{ item.item_cost }}')">Add</button>
+                                    {% elif "Heritage Gala" in item.item_name %}
+                                    <p class="text-purple-700 py-2 text-sm font-medium">First Name on Ticket: </p>
+                                    <input type="text" name="firstNameOnTicket" id="firstNameOnTicket" class="appearance-none block w-full bg-purple-100 text-purple-700 border border-purple-200 rounded py-1 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
+                                    <p class="text-purple-700 py-2 text-sm font-medium">Last Name on Ticket: </p>
+                                    <input type="text" name="lastNameOnTicket" id="lastNameOnTicket" class="appearance-none block w-full bg-purple-100 text-purple-700 border border-purple-200 rounded py-1 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
                                     {% endif %}
-                                    
+                                    <button type="button" class="inline-block bg-purple-500 hover:bg-purple-400 text-white leading-none font-bold py-2 px-4 text-sm border-b-4 border-purple-700 hover:border-purple-500 align-center rounded my-2" onclick="addToCart('{{ item.item_name }}', '', '{{ item.item_cost }}')">Add</button>
                                 </div>
                             </div>
                             {% endfor %}
                         </div>
-
                     </div>
                 </div>
                 <div id="checkout">
@@ -102,84 +101,84 @@
 </body>
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-    subtotal = 0.0;
+subtotal = 0.0;
 
-    function toggleEvents() {
+function toggleEvents() {
 
-        var events = document.getElementById("eventContainer");
+    var events = document.getElementById("eventContainer");
 
-        if (events.style.display === "none") {
-            events.style.display = "block";
-            document.getElementById("eventsButton").innerHTML = "Hide Events";
-        } else {
-            events.style.display = "none";
-            document.getElementById("eventsButton").innerHTML = "Show Events";
-        }
-    };
-
-    function addToCart(item_name, order_info, item_cost) {
-        item_cost = parseInt(item_cost);
-        subtotal += item_cost;
-        totalCost = 1.15 * subtotal
-        document.getElementById("subtotal").innerHTML = "Subtotal: $" + subtotal.toFixed(2) + " (CAD)";
-        document.getElementById("total").innerHTML = "Your Total: $" + totalCost.toFixed(2) + " (CAD)";
-        document.getElementById("cart_items").value += item_name + "," + order_info + ";";
-        document.getElementById("cart").innerHTML += "&emsp;&emsp;" + item_name + ".............." + order_info + ".............. $" + item_cost.toFixed(2) + " (CAD) <br/>";
+    if (events.style.display === "none") {
+        events.style.display = "block";
+        document.getElementById("eventsButton").innerHTML = "Hide Events";
+    } else {
+        events.style.display = "none";
+        document.getElementById("eventsButton").innerHTML = "Show Events";
     }
+};
 
-    var stripe = Stripe('pk_test_VRFvTX5rTymGR7EmgngQb6SD000huK5fnj');
-    var elements = stripe.elements();
+function addToCart(item_name, order_info, item_cost) {
+    item_cost = parseInt(item_cost);
+    subtotal += item_cost;
+    totalCost = 1.15 * subtotal
+    document.getElementById("subtotal").innerHTML = "Subtotal: $" + subtotal.toFixed(2) + " (CAD)";
+    document.getElementById("total").innerHTML = "Your Total: $" + totalCost.toFixed(2) + " (CAD)";
+    document.getElementById("cart_items").value += item_name + "," + order_info + ";";
+    document.getElementById("cart").innerHTML += "&emsp;&emsp;" + item_name + ".............." + order_info + ".............. $" + item_cost.toFixed(2) + " (CAD) <br/>";
+}
 
-    var style = {
-        base: {
-            // Add your base input styles here. For example:
-            fontSize: '16px',
-            color: "#32325d",
-        }
-    };
+var stripe = Stripe('pk_test_VRFvTX5rTymGR7EmgngQb6SD000huK5fnj');
+var elements = stripe.elements();
 
-    // Create an instance of the card Element.
-    var card = elements.create('card', { style: style });
+var style = {
+    base: {
+        // Add your base input styles here. For example:
+        fontSize: '16px',
+        color: "#32325d",
+    }
+};
 
-    // Add an instance of the card Element into the `card-element` <div>.
-    card.mount('#card-element');
+// Create an instance of the card Element.
+var card = elements.create('card', { style: style });
 
-    card.addEventListener('change', function(event) {
-        var displayError = document.getElementById('card-errors');
-        if (event.error) {
-            displayError.textContent = event.error.message;
+// Add an instance of the card Element into the `card-element` <div>.
+card.mount('#card-element');
+
+card.addEventListener('change', function(event) {
+    var displayError = document.getElementById('card-errors');
+    if (event.error) {
+        displayError.textContent = event.error.message;
+    } else {
+        displayError.textContent = '';
+    }
+});
+
+// Create a token or display an error when the form is submitted.
+var form = document.getElementById('payment-form');
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    stripe.createToken(card).then(function(result) {
+        if (result.error) {
+            // Inform the customer that there was an error.
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
         } else {
-            displayError.textContent = '';
+            // Send the token to your server.
+            stripeTokenHandler(result.token);
         }
     });
+});
 
-    // Create a token or display an error when the form is submitted.
+function stripeTokenHandler(token) {
+    // Insert the token ID into the form so it gets submitted to the server
     var form = document.getElementById('payment-form');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
+    var hiddenInput = document.createElement('input');
+    hiddenInput.setAttribute('type', 'hidden');
+    hiddenInput.setAttribute('name', 'stripeToken');
+    hiddenInput.setAttribute('value', token.id);
+    form.appendChild(hiddenInput);
 
-        stripe.createToken(card).then(function(result) {
-            if (result.error) {
-                // Inform the customer that there was an error.
-                var errorElement = document.getElementById('card-errors');
-                errorElement.textContent = result.error.message;
-            } else {
-                // Send the token to your server.
-                stripeTokenHandler(result.token);
-            }
-        });
-    });
-
-    function stripeTokenHandler(token) {
-        // Insert the token ID into the form so it gets submitted to the server
-        var form = document.getElementById('payment-form');
-        var hiddenInput = document.createElement('input');
-        hiddenInput.setAttribute('type', 'hidden');
-        hiddenInput.setAttribute('name', 'stripeToken');
-        hiddenInput.setAttribute('value', token.id);
-        form.appendChild(hiddenInput);
-
-        // Submit the form
-        form.submit();
-    }
+    // Submit the form
+    form.submit();
+}
 </script>

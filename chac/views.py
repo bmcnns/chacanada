@@ -54,12 +54,17 @@ def register(request):
 					item_desc = item_info[1]
 					item_cost = Item.objects.get(item_name=item_name).item_cost
 
+					if "Heritage Gala" in item_name:
+						item_desc += ("FirstName:" + request.POST.get('firstNameOnTicket'))
+						item_desc += ("LastName:" + request.POST.get('lastNameOnTicket'))
+
 					user.cart += item_name + "," + item_desc + "," + str(item_cost) + ";"
 					
 
 					total += item_cost
 
 			user.save()
+
 			total *= 100
 			total = int(total)
 
@@ -70,22 +75,21 @@ def register(request):
 				source=request.POST['stripeToken']
 			)
 
-			return redirect('thanks', title="Thanks for registering", message="Your registration was a success!")
+			return redirect('thanks')
+		
 		else:
 			return HttpResponse(form.errors)
 	else:
 		form = RegistrationForm()
 
+		items = Item.objects.all()
 
-	items = Item.objects.all()
+		context = {
+			"form": form,
+			"items": items,
+		}
 
-	context = {
-		"form": form,
-		"items": items,
-		"key": settings.STRIPE_PUBLISHABLE_KEY,
-	}
-
-	return render(request, 'chac/register.html', context)
+		return render(request, 'chac/register.html', context)
 
 #Volunteer registration view
 def volunteer(request):
