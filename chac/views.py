@@ -145,3 +145,53 @@ def thanks(request):
 	context = {
 	}
 	return render(request, 'chac/thanks.html', context)
+
+def manual_register(request):
+	if request.user.is_superuser:
+		if request.method == 'POST':
+			form = RegistrationForm(request.POST)
+
+			if form.is_valid():
+				
+				user = form.save()
+
+				order_description = ""
+				total = 0
+
+				cart_items = request.POST.get('cart_items').split(';')
+				for item in cart_items:
+					if item:
+						item_info = item.split(',')
+						item_name = item_info[0]
+						item_desc = item_info[1]
+						item_cost = Item.objects.get(item_name=item_name).item_cost
+
+						if "Heritage Gala" in item_name:
+							item_desc += ("FirstName:" + request.POST.get('firstNameOnTicket'))
+							item_desc += ("LastName:" + request.POST.get('lastNameOnTicket'))
+
+						user.cart += item_name + "," + item_desc + "," + str(item_cost) + ";"
+						
+
+						total += item_cost
+
+				user.save()
+
+				return redirect('thanks')
+			
+			else:
+				return HttpResponse(form.errors)
+		else:
+			form = RegistrationForm()
+
+			items = Item.objects.all()
+
+			context = {
+				"form": form,
+				"items": items,
+			}
+
+			return render(request, 'chac/manual_register.html', context)
+	else:
+		return HttpResponse("<strong>Access forbidden.</strong>")
+
