@@ -129,7 +129,7 @@ function addToCart(item_name, order_info, item_cost) {
     document.getElementById("cart").innerHTML += "&emsp;&emsp;" + item_name + ".............." + order_info + ".............. $" + item_cost.toFixed(2) + " (CAD) <br/>";
 }
 
-var stripe = Stripe('pk_test_VRFvTX5rTymGR7EmgngQb6SD000huK5fnj');
+var stripe = Stripe('pk_live_Cj1R1yeThzXd4REijgcOJFXK00Y718rx3o');
 var elements = stripe.elements();
 
 var style = {
